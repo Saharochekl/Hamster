@@ -1,0 +1,15 @@
+unsigned char* bw_gauss(unsigned char* odata, int iw, int ih)
+{
+    unsigned char* Image  = (unsigned char*)malloc(ih*iw*sizeof(unsigned char));
+    for (int i = 1; i < ih-1; i++) 
+    {
+        for (int j = 2; j < iw-1; j++) 
+        {
+            Image[iw*i+j] = 0.15*odata[iw*i+j] + 0.12*odata[iw*(i+1)+j] + 0.12*odata[iw*(i-1)+j];
+            Image[iw*i+j] = Image[iw*i+j] + 0.12*odata[iw*i+(j+1)] + 0.12*odata[iw*i+(j-1)];
+            Image[iw*i+j] = Image[iw*i+j] + 0.09*odata[iw*(i+1)+(j+1)] + 0.09*odata[iw*(i+1)+(j-1)];
+            Image[iw*i+j] = Image[iw*i+j] + 0.09*odata[iw*(i-1)+(j+1)] + 0.09*odata[iw*(i-1)+(j-1)];
+        }
+    }
+    return Image;
+}
